@@ -1,25 +1,15 @@
 {
-  "name": "root",
-  "devDependencies": {
-    "@changesets/changelog-github": "^0.4.0",
-    "@changesets/cli": "^2.18.0",
-    "@types/jest": "^27.0.1",
-    "husky": "^7.0.2",
-    "jest": "^27.0.6",
-    "jest-cli": "^27.0.6",
-    "jest-util": "^27.0.6",
-    "mkdirp": "^1.0.4",
-    "nixt": "^0.5.1",
-    "prettier": "^2.3.2",
-    "pretty-quick": "^3.1.1",
-    "rimraf": "^3.0.2"
+  "name": "create-profcomff-webapp",
+  "version": "1.0.2",
+  "description": "скрипт для автоматической генерации проекта приложения Твой ФФ!",
+  "bin": {
+    "create-profcomff-webapp": "bin/create-profcomff-webapp.js"
   },
-  "scripts": {
-    "clean-tests": "rimraf tests/fixtures && pnpm install",
-    "test": "pnpm run clean-tests && pnpm run test:e2e",
-    "test:e2e": "jest",
-    "format": "prettier . --write",
-    "prepare": "husky install"
-  },
-  "license": "MIT"
+  "author": "Roman Dyakov <roman@dyakov.space>",
+  "license": "MIT",
+  "dependencies": {
+    "generator-single-spa": "^4.1.3",
+    "yargs": "^17.1.1",
+    "yeoman-environment": "^3.6.0"
+  }
 }

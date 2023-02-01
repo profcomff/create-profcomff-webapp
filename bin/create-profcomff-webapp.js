@@ -7,7 +7,12 @@ const argv = require("yargs").argv;
 
 const env = yeoman.createEnv();
 env.registerStub(require("generator-single-spa"), "single-spa");
+
+argv.framework = 'vue';
+argv.moduleType = 'app-parcel';
+
 env.run("single-spa " + argv._.join(" "), argv);
+exec("git add . && git commit -m 'profcomff preparation' --author='PKFF CI <profcom@physics.msu.ru>'");
 
 function checkNodeVersion() {
   const minVersion = "12.13.0";
