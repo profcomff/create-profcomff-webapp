@@ -4,10 +4,21 @@ checkNodeVersion();
 
 const yeoman = require("yeoman-environment");
 const argv = require("yargs").argv;
+const { exec } = require("child_process");
 
 const env = yeoman.createEnv();
 env.registerStub(require("generator-single-spa"), "single-spa");
+
+argv.framework = 'vue';
+argv.moduleType = 'app-parcel';
+
 env.run("single-spa " + argv._.join(" "), argv);
+exec("git add . && git commit -m 'profcomff preparation' --author='PKFF CI <profcom@physics.msu.ru>'", (error, stdout, stderr) => {
+  if (stderr) {
+      console.error(`stderr: ${stderr}`);
+      return;
+  }
+});
 
 function checkNodeVersion() {
   const minVersion = "12.13.0";
