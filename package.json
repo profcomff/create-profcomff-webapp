@@ -1,6 +1,6 @@
 {
   "name": "create-profcomff-webapp",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "скрипт для автоматической генерации проекта приложения Твой ФФ!",
   "bin": {
     "create-profcomff-webapp": "bin/create-profcomff-webapp.js"

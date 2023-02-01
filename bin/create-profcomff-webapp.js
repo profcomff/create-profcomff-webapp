@@ -12,6 +12,25 @@ const env = yeoman.createEnv();
 env.registerStub(require("generator-single-spa"), "single-spa");
 
 console.info(`Using directory ${process.cwd()} for project files`)
+
+try {
+  fetch(`https://marketing.api.profcomff.com/action`, {
+    method: "POST",
+    cache: "no-cache",
+    redirect: "follow",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      user_id: -3,
+      action: "webapp init",
+      path_from: "https://github.com/profcomff/create-profcomff-webapp",
+      path_to: "https://github.com/profcomff/create-profcomff-webapp",
+      additional_data: `{"folder": "${process.cwd()}"}`,
+    }),
+  });
+} catch {
+  //Failed, skips
+}
+
 env.run("single-spa . --framework vue --moduleType app-parcel" + argv._.join(" "), argv).then(() => {
   content = `module.exports = {
     runtimeCompiler: true,
@@ -52,6 +71,39 @@ VUE_APP_API_MARKETING=https://marketing.api.test.profcomff.com
 VUE_APP_FEEDBACK_FORM=https://forms.yandex.ru/u/635d013b068ff0587320bfc9/
   `;
   fs.writeFile(process.cwd() + '/.env.development', content, err => {if (err) { console.error(err); throw err; }});
+}).then(() => {
+  content = `
+<template>
+  <img alt="Vue logo" :src="url">
+  <HelloWorld msg="Ура! Вы создали приложение для Твой ФФ!"/>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  },
+  data: () => ({
+    url: \`$\{process.env.VUE_APP_CDN\}/app/logo/logo_ff.svg\`
+  })
+}
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
+  `;
+  fs.writeFile(process.cwd() + '/src/App.vue', content, err => {if (err) { console.error(err); throw err; }});
 }).then(() => {
   // exec(
   //   `git add ${process.cwd()} && git commit -m 'profcomff preparation' --author='PKFF CI <profcom@physics.msu.ru>'`,
